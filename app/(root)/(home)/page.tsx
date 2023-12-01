@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-
-=======
-/*
-import QuestionCard from "@/components/cards/QuestionCard";
-import HomeFilters from "@/components/home/HomeFilters";
-import Filter from "@/components/shared/Filter";
-import NoResults from "@/components/shared/NoResults";
-import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { Button } from "@/components/ui/button";
-import { HomePageFilters } from "@/constants/filters";
-import { getQuestions } from "@/lib/actions/question.action";
->>>>>>> e8e983e5458c84e1d57f8fc2de106a45a6d15c3b
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
