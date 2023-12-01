@@ -5,7 +5,7 @@ import { getAnswers } from '@/lib/actions/answer.action';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getTimestamp } from '@/lib/utils';
-import ParseHTML from './ParseHTML';
+
 import Votes from './Votes';
 import Pagination from './Pagination';
 
@@ -68,7 +68,7 @@ const AllAnswers = async ({ questionId, userId, totalAnswers, page, filter }: Pr
                 </div>
               </div>
 
-              <ParseHTML data={answer.content} />
+            
           </article>
         ))}
       </div>
