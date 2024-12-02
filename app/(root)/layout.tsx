@@ -1,3 +1,4 @@
+import Footer from '@/components/Footer'
 import LeftSidebar from '@/components/shared/LeftSidebar'
 // import RightSidebar from '@/components/shared/RightSidebar'
  import Navbar from '@/components/shared/navbar/Navbar'
@@ -19,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
        {/* <RightSidebar /> */}
       </div>
-
+      <Footer/>
       <Toaster />
     </main>
   )

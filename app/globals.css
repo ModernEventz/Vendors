@@ -4,6 +4,7 @@
 
 @import url("../styles/theme.css");
 
+
 body {
   font-family: "Inter", sans-serif;
 }
@@ -162,4 +163,41 @@ code {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+input {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error {
+  color: red;
+  margin: 0;
+  font-size: 0.9em;
+}
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
 }

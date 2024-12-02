@@ -4,71 +4,71 @@ let vendorTypes = []
 export default  vendorTypes = [
     {
       id: 0,
-      title: "venue ",
+      title: "Venue ",
       image: ("/assets/images/venue.jpg"),
-      url:'/venueListing'
+      url:'/venueListing?category=venue'
      
     },
     {
       id: 1,
-      title: "caterer",
+      title: "Caterer",
       image: ("/assets/images/catering.jpg"),
-      url:'/catererListing'
+      url:'/catererListing?category=caterer'
      
     },
     {
       id: 2,
-      title: "decor",
+      title: "Decor",
       image: ("/assets/images/decor.jpg"),
-      url:'/decorListing'
+      url:'/decorListing?category=decor'
     
     },
     {
       id: 3,
-      title: "photographer",
+      title: "Photographer",
       image: ("/assets/images/photographer.jpg"),
-      url:'/photographerListing'
+      url:'/photographerListing?category=photographer'
       
     },
     {
       id: 4,
-      title: "mc",
+      title: "Mc",
       image: ("/assets/images/mc.jpg"),
-      url:'/mcListing'
+      url:'/mcListing?category=mc'
      
     },
     {
       id: 5,
-      title: "dj",
+      title: "Dj",
       image: ("/assets/images/dj.jpg"),
-      url:'/djListing'
+      url:'/djListing?category=dj'
      
     },
     {
       id: 6,
-      title: "food&drinks",
+      title: "Food&drinks",
       image: ("/assets/images/foodanddrinks.jpg"),
-      url:'/foodanddrinksListing'
+      url:'/foodanddrinksListing?category=fooddrinks'
      
     },
     {
       id: 7,
-      title: "makeup",
+      title: "Makeup",
       image: ("/assets/images/makeup.jpg"),
-      url:'/makeupListing'
+      url:'/makeupListing?category=makeup'
     },
     {
       id: 8,
-      title: "rings",
+      title: "Rings",
       image: ("/assets/images/rings.jpg"),
-      url:'/ringsListing'
+      url:'/ringsListing?category=rings'
     
     },
     {
       id: 9,
-      title: "transport",
+      title: "Transport",
       image: ("/assets/images/transport.jpg"),
-      url:'/transportListing'
+      url:'/transportListing?category=transport'
    
     },
   ];

@@ -2,21 +2,36 @@
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getTimestamp } from '@/lib/utils'
+import Image from "next/image";
+// import { currentUser } from '@clerk/nextjs';
 
-const RatingDetails = ({reviews}) => {
+const generateAvatar = (name) => {
+  const initials = name ? name[0].toUpperCase() : '?'; // Use '?' if name is not provided
+  const avatarUrl = `https://ui-avatars.com/api/?name=${initials}&background=F33A6A&color=fff`;
+
+  return <img src={avatarUrl} alt={`${initials} Avatar`} className='rounded-full'/>;
+};
+
+const  RatingDetails = async ({reviews}) => {
+  
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col'> 
          <div  className='flex flex-row'>
          <div className=''>
         {/*  avatar */}
-        <Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
-</Avatar>
 
+
+{reviews.avatar ? (
+             <Avatar >
+             <AvatarImage src={reviews.avatar} alt={`${reviews.reviewer_name} Avatar`} />   
+           </Avatar>
+       
+      ) : (
+        generateAvatar(reviews.reviewer_name)
+      )}
         </div>
         <div className='mx-3'>
-        <p className='font-bold'>{reviews.reviwer_name}</p>
+        <p className='font-bold'>{reviews.reviewer_name}</p>
         <p className='text-sm'>{getTimestamp(new Date(reviews.created_at))}</p>
         </div>
         </div>

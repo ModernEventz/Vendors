@@ -74,6 +74,45 @@ export interface GetVendorByIdParams {
   vendorId: string;
 }
 
+export interface GetBudgetByIdParams {
+  profileId: string|null|undefined;
+}
+
+export interface GetCheckListByIdParams {
+  profileId: string|null|undefined;
+}
+export interface UpdateBudgetByIdParams {
+  budgetId: string;
+  item:string;
+  cost:number;
+  status:string;
+  path:string;
+}
+
+export interface UpdateCheckListByIdParams {
+  checkListId: string;
+  title:string;
+  category:string;
+  date:string;
+  status:string;
+  path:string;
+}
+
+
+export interface DeleteBudgetByIdParams {
+  budgetId: string;
+  path:string;
+}
+
+export interface DeleteCheckListByIdParams {
+  checkListId: string;
+  path:string;
+}
+
+export interface DeleteCheckListParams {
+  
+  path:string;
+}
 export interface QuestionVoteParams {
   questionId: string;
   userId: string;
@@ -101,6 +140,32 @@ export interface GetAllTagsParams {
   searchQuery?: string;
 }
 
+export interface GetVendorsByCategoryPaginationParams {
+  Page: number;
+  category:string;
+
+ 
+}
+
+export interface GetVendorsByCategoryNoPaginationParams {
+  
+  category:string;
+
+ 
+}
+
+export interface GetSearchVendorsPaginationParams {
+  Page: number;
+  searchTerm: string;
+ 
+}
+
+export interface GetFilterVendorsByLocationParams {
+  Page: number;
+  location: string;
+  category:string;
+ 
+}
 export interface GetQuestionsByTagIdParams {
   tagId: string;
   page?: number;
@@ -165,10 +230,81 @@ export interface DeleteUserParams {
 
 export interface SubmitReviewParams {
   vendorId: string;
-  name:string;
+
   message:string;
   rating:number;
-  
+  path:string;
   
 
+}
+
+export interface SubmitBudgetParams {
+ 
+
+  status:string;
+  item:string;
+  cost:number;
+  path:string;
+  
+
+}
+
+export interface SubmitCheckListParams {
+ 
+
+  status:string;
+  title:string;
+  category:string;
+  date:string;
+  path:string;
+  
+
+}
+
+export interface BookingParams {
+  vendorId: string;
+  price:number;
+  username: string;
+  email: string;
+  date:string;
+  time:string;
+  message:string;
+  numberOfGuests:string;
+  phoneNumber:string;
+  
+}
+
+export interface GetHiredVendorByIdParams {
+  profile_Id: string|null|undefined;
+}
+
+export interface submitHiredVendorParams {
+  profile_id: string;
+  vendor_id: string;
+  location : string;
+  price : string;
+  rating:number;
+  rating_count:number;
+  description:string;
+  image:string;
+  category:string;
+}
+
+export interface insertVendorsParams {
+  title:string;
+  location : string;
+  price : string;
+  description:string;
+  category:string;
+  publicUrls:string[]
+}
+
+export interface updateVendorsParams {
+  vendorId: string;
+  title:string;
+  location : string;
+  price : string;
+  description:string;
+  category:string;
+  publicUrls:string[]
 }

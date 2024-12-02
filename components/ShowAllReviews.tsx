@@ -1,18 +1,47 @@
 "use client"
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getTimestamp } from '@/lib/utils'
 
+const generateAvatar = (name) => {
+  const initials = name ? name[0].toUpperCase() : '?'; // Use '?' if name is not provided
+  const avatarUrl = `https://ui-avatars.com/api/?name=${initials}&background=F33A6A&color=fff`;
+
+  return <img src={avatarUrl} alt={`${initials} Avatar`} className='rounded-full'/>;
+};
+
 
 export default function ShowAllReviews({Reviews}) {
 
   const [showAllReviews,setShowAllReviews] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+
+  
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      // Clean up the event listener when the component unmounts
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    setShowAllReviews(true)
+  };
 
   if (showAllReviews) {
     return (
-      <div className="absolute inset-0 min-h-screen bg-black text-white">
+      <div className="absolute inset-0 z-50 min-h-screen bg-black text-white">
         <div className="grid gap-4 bg-black p-8">
           <div className="flex justify-between" >
             <h2 className="mr-48 text-3xl">Reviews</h2>
@@ -33,14 +62,18 @@ export default function ShowAllReviews({Reviews}) {
          <div  className='flex flex-row'>
          <div className=''>
         {/*  avatar */}
-        <Avatar>
-  <AvatarImage src="https://github.com/shadcn.png" />
-  <AvatarFallback>CN</AvatarFallback>
-</Avatar>
+        {review.avatar ? (
+             <Avatar >
+             <AvatarImage src={review.avatar} alt={`${review.reviewer_name} Avatar`} />   
+           </Avatar>
+       
+      ) : (
+        generateAvatar(review.reviewer_name)
+      )}
 
         </div>
         <div className='mx-3'>
-        <p className='font-bold'>{review.reviwer_name}</p>
+        <p className='font-bold'>{review.reviewer_name}</p>
         <p className='text-sm'>{getTimestamp(new Date(review.created_at))}</p>
         </div>
         </div>
@@ -82,7 +115,7 @@ export default function ShowAllReviews({Reviews}) {
   return (
     
    <div>
-      <Button onClick={() => setShowAllReviews(true)}  className=" my-3 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40">show all reviews</Button>
+      <Button onClick={() =>  scrollToTop()}  className=" my-3 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40">show all reviews</Button>
 
       
     </div>

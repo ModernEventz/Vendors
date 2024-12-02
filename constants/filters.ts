@@ -6,9 +6,26 @@ export const AnswerFilters = [
 ];
 
 export const UserFilters = [
-  { name: "New Users", value: "new_users" },
-  { name: "Old Users", value: "old_users" },
-  { name: "Top Contributors", value: "top_contributors" },
+  { name: "Accra", value: "Accra" },
+  { name: "Kumasi", value: "Kumasi" },
+  { name: "Sunyani", value: "Sunyani" },
+  { name: "sekondi", value: "Sekondi" },
+  { name: "Koforidua", value: "Koforidua" },
+  { name: "Tamale", value: "Tamale" },
+  { name: "Ho", value: "Ho" },
+  { name: "Cape Coast", value: "Cape_coast" },
+  { name: "Techiman", value: "Techiman" },
+  { name: "Goaso", value: "Goaso" },
+  { name: "Sefwi Wiawso", value: "Sefwi_wiaso" },
+  { name: "damango", value: "Damango" },
+
+  { name: "Bolgatanga", value: "Bolgatanga" },
+  { name: "Nalerigu", value: "Nalerigu" },
+  
+ 
+  { name: "Dambai", value: "Dambai" },
+
+
 ];
 
 export const QuestionFilters = [

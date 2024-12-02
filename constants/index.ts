@@ -7,38 +7,26 @@ export const themes = [
 ];
 
 export const sidebarLinks: SidebarLink[] = [
+ 
   {
     imgURL: "/assets/icons/home.svg",
-    route: "/",
+    route: "/home",
     label: "Home",
-  },
-  {
-    imgURL: "/assets/icons/users.svg",
-    route: "/vendors",
-    label: "Vendors",
-  },
-  {
-    imgURL: "/assets/icons/star.svg",
-    route: "/collection",
-    label: "CheckList",
-  },
-  {
-    imgURL: "/assets/icons/suitcase.svg",
-    route: "/jobs",
-    label: "Budget",
-  },
-  {
-    imgURL: "/assets/icons/tag.svg",
-    route: "/tags",
-    label: "Shop",
   },
   {
     imgURL: "/assets/icons/user.svg",
     route: "/profile",
     label: "Profile",
   },
+  {
+    imgURL: "/assets/icons/suitcase.svg",
+    route: "/budget",
+    label: "Orders",
+  },
 
 ];
+
+
 
 export const BADGE_CRITERIA = {
   QUESTION_COUNT: {
@@ -67,3 +55,29 @@ export const BADGE_CRITERIA = {
     GOLD: 100000,
   },
 };
+
+
+export const eventDefaultValues = {
+  title: '',
+  description: '',
+  location: '',
+  imageUrl: '',
+  startDateTime: new Date(),
+  endDateTime: new Date(),
+  categoryId: '',
+  price: '',
+  isFree: false,
+  url: '',
+}
+
+export const gCities = [
+  'Aburi', 'Accra', 'Aflao', 'Agogo', 'Akwatia', 'Anloga', 'Asamankese', 
+  'Ashaiman', 'Atebubu', 'Axim', 'Bawku', 'Berekum', 'Bibiani', 
+  'Bolgatanga', 'Cape Coast', 'Damongo', 'Denu', 'Dormaa Ahenkro', 
+  'Dunkwa-on-Offin', 'Ejura', 'Elmina', 'Foso', 'Ho', 'Hohoe', 'Kade', 
+  'Keta', 'Kintampo', 'Koforidua', 'Konongo', 'Kumasi', 'Madina', 
+  'Mampong', 'Navrongo', 'Nkawkaw', 'Nkoranza', 'Nsawam', 'Obuasi', 
+  'Paga', 'Prestea', 'Salaga', 'Saltpond', 'Sefwi Wiawso', 
+  'Sekondi-Takoradi', 'Sogakope', 'Sunyani', 'Tamale', 'Tarkwa', 
+  'Techiman', 'Tema', 'Tumu', 'Wa', 'Wenchi', 'Winneba', 'Yendi'
+];

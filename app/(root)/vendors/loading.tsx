@@ -1,23 +1,16 @@
-import { Skeleton } from '@/components/ui/skeleton'
-import React from 'react'
+// loading.tsx
+
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 const Loading = () => {
   return (
-    <section>
-      <h1 className="h1-bold text-dark100_light900">All Users</h1>
-
-      <div className="mb-12 mt-11 flex flex-wrap gap-5">
-        <Skeleton className="h-14 flex-1" />
-        <Skeleton className="h-14 w-28" />
+    <div className="flex h-screen items-center justify-center">
+      <div className="animate-spin rounded-full border-t-4 border-primary-500 border-opacity-25 border-b-4 border-dark-700 h-12 w-12">
+        <Skeleton circle={true} height={12} width={12} />
       </div>
+    </div>
+  );
+};
 
-      <div className="flex flex-wrap gap-4">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-          <Skeleton key={item} className="h-60 w-full rounded-2xl sm:w-[260px]" />
-        ))}
-      </div>
-    </section>
-  )
-}
-
-export default Loading
+export default Loading;

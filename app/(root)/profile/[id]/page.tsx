@@ -1,110 +1,222 @@
-import { Button } from '@/components/ui/button'
-import { getUserInfo } from '@/lib/actions/user.action'
-import { URLProps } from '@/types'
-import { SignedIn, auth } from '@clerk/nextjs'
-import Image from 'next/image'
+
+import UserCard from '@/components/cards/UserCard'
+import Filter from '@/components/shared/Filter'
+
+import LocalSearchbar from '@/components/shared/search/LocalSearchbar'
+import { UserFilters } from '@/constants/filters'
+
+import { SearchParamsProps } from '@/types'
 import Link from 'next/link'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Image from "next/image";
+import type { Metadata } from 'next';
+import vendorTypes from '@/constants/vendorTypes'
+import { currentUser } from "@clerk/nextjs";
+import { getHiredVendorById } from "@/lib/actions/hiredVendors.action";
+import {   getVendorById } from "@/lib/actions/vendor.action";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getTimestamp } from '@/lib/utils'
+import { Button } from "@/components/ui/button";
 
-import React from 'react'
-import { getJoinedDate } from '@/lib/utils'
-import ProfileLink from '@/components/shared/ProfileLink'
-import Stats from '@/components/shared/Stats'
-import QuestionTab from '@/components/shared/QuestionTab'
-import AnswersTab from '@/components/shared/AnswersTab'
 
-const Page = async ({ params, searchParams}: URLProps) => {
-  const { userId: clerkId } = auth();
-  const userInfo = await getUserInfo({ userId: params.id})
+import { createClient } from '@supabase/supabase-js';
 
+
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import {
+  Card, CardContent, CardHeader, CardTitle,
+
+} from "@/components/ui/card"
+import NoResult from '@/components/shared/NoResult'
+import { ImageIcon, Pencil1Icon, PlusIcon, ReaderIcon, StarFilledIcon } from '@radix-ui/react-icons'
+import ICarousel from '@/components/Icarousel'
+
+
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+ const supabase = createClient(supabaseUrl, supabaseKey);
+
+ 
+
+
+async function GetData() {
+  // Fetch data from your API here.
+  const vendor:any|null = await getVendorById();
+  return vendor;
+}
+
+async function GetPhotos() {
+  // Fetch data from your API here.
+  const user = await currentUser();
+  const { data, error } = await supabase.storage.from('uploads').list(user?.id + '/', {
+    limit: 10,
+    offset: 0,
+    sortBy: {
+      column: 'name', order:
+        'asc'
+    }
+  });
+ 
+  return data;
+}
+
+
+const generateAvatar = (name) => {
+  const initials = name ? name[0].toUpperCase() : '?'; // Use '?' if name is not provided
+  const avatarUrl = `https://ui-avatars.com/api/?name=${initials}&background=F33A6A&color=fff`;
+
+  return <img src={avatarUrl} alt={`${initials} Avatar`} className='rounded-full'/>;
+};
+const Page = async () => {
+  
+  const vendors = await GetData()
+  const media = await GetPhotos()
+  const user = await currentUser();
+
+ 
+    
   return (
     <>
-      <div className="flex flex-col-reverse items-start justify-between sm:flex-row">
-        <div className="flex flex-col items-start gap-4 lg:flex-row">
-          <Image 
-            src={userInfo?.user.picture}
-            alt="profile picture"
-            width={140}
-            height={140}
-            className="rounded-full object-cover"
-          />
+      <h1 className="h1-bold text-dark100_light900 m-5">Profile</h1> 
 
-          <div className="mt-3">
-            <h2 className="h2-bold text-dark100_light900">{userInfo.user.name}</h2>
-            <p className="paragraph-regular text-dark200_light800">@{userInfo.user.username}</p>
+      <div className='flex flex-row justify-start gap-x-20'>
+        <div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo.user.portfolioWebsite && (
-                <ProfileLink 
-                  imgUrl="/assets/icons/link.svg"
-                  href={userInfo.user.portfolioWebsite}
-                  title="Portfolio"
-                />
-              )}
+        {user?.imageUrl ? (
+              <img     
+              src={user.imageUrl}
+                  alt='profile pic'              
+                  
+                  className="rounded-full"             
+                   width={100}
+                  height={100}
+                  />
+       
+      ) : (
+        generateAvatar(user?.primaryEmailAddressId)
+      )}
+       
+             <div className='mt-6 flex flex-row gap-x-1'> <p className='text-base font-bold'>{user?.firstName}</p>
+             <p className='text-base font-bold '>{user?.lastName}</p>
+             </div>
 
-              {userInfo.user.location && (
-                <ProfileLink 
-                  imgUrl="/assets/icons/location.svg"
-                  title={userInfo.user.location}
-                />
-              )}
-
-                <ProfileLink 
-                  imgUrl="/assets/icons/calendar.svg"
-                  title={getJoinedDate(userInfo.user.joinedAt)}
-                />
-            </div>
-
-            {userInfo.user.bio && (
-              <p className="paragraph-regular text-dark400_light800 mt-8">
-                {userInfo.user.bio}
-              </p>
-            )}
           </div>
-        </div>
 
-        <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
-          <SignedIn>
-            {clerkId === userInfo.user.clerkId && (
-              <Link href="/profile/edit">
-                <Button className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3">
-                  Edit Profile
-                </Button>
-              </Link>
-            )}
-          </SignedIn>
+         <div>
+          <p className='text-base font-medium text-slate-400'>No of posts:<span> {vendors.length}</span></p>
+          <p className='text-base font-medium text-slate-400'>Date Joined: <span>{getTimestamp(new Date(user?.createdAt))}</span></p>
+
+          <div className=''>
+          <Link href={'/user-profile'}>
+          <Button className=" my-14 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40"variant="outline" > 
+            <Pencil1Icon width={30} height={30} className='pr-2'/> Edit Profile
+            </Button>
+            </Link>
+
+            <Link href={'/eventform'}>
+          <Button className=" my-14 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40"variant="outline" > 
+            <PlusIcon width={30} height={30} className='pr-2'/> Add Post
+            </Button>
+            </Link> 
+            </div> 
         </div>
       </div>
+
+       
+
+      <Tabs defaultValue="posts" >
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="posts" className='rounded-lg bg-white text-lg font-semibold shadow-md '><ReaderIcon className='mr-2'/>Posts<span className='ml-8 text-slate-600'>{vendors.length}</span></TabsTrigger>
+        <TabsTrigger value="photos" className='rounded-lg bg-white text-lg font-semibold shadow-md'><ImageIcon className='mr-2'/>Photos<span className='ml-8 text-slate-600'>{media.length}</span></TabsTrigger>
+      </TabsList>
+      <TabsContent value="posts">
+        <Card>
+          <CardHeader>
+            <CardTitle>My Posts</CardTitle>
+            
+          </CardHeader>
+          <CardContent className="space-y-2">
+          
+      <section className="grid grid-cols-1 gap-4  md:grid-cols-3">
+        {vendors.length > 0 ? (
+          vendors.map((vendor)=> (
+            <div  key={vendor.vendor_id}>    
+
+          <div className="mb-2 flex rounded-2xl ">
+                {/* image carousel */}
+   
+                 <ICarousel images={vendor.images}  href={`/update/${vendor.vendor_id}`} />
+          </div>
+          <div className='flex  justify-between'>
+          <h2 className="font-bold">{vendor.location}</h2>
+          <div className='flex  justify-between gap-x-1'>
+          <StarFilledIcon className='mt-1'/>
+          <span> 4.89 <span className="font-normal text-slate-400">(128)</span></span>
+          </div>
+          </div>
+          <h3 className="text-sm text-gray-500">{vendor.vendor_name}</h3>
+          <div className="mt-1">
+            <span className="font-bold">${vendor.price}</span> per night
+          </div>
+       
+         </div>
+ 
+          ))
+        ) : (
+          <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
+            <p>No posts yet</p>
+            <Link href="/eventform" className="mt-2 font-bold text-accent-blue">
+              Create your first post!
+            </Link>
+          </div>
+        )}
+      </section>
       
-      <Stats
-        reputation={userInfo.reputation}
-        totalQuestions={userInfo.totalQuestions}
-        totalAnswers={userInfo.totalAnswers}
-        badges={userInfo.badgeCounts}
-      />
+          </CardContent>
+       
+        </Card>
+      </TabsContent>
+      <TabsContent value="photos">
+      <Card>
+         
+         <CardContent className="space-y-2">
+         <section className="mt-12 flex flex-wrap gap-4">
+       {media.length > 0 ? (
+            media.map((url, index) => {
+              return (<>
+                <div key={index}>
+               
 
-      <div className="mt-10 flex gap-10">
-        <Tabs defaultValue="top-posts" className="flex-1">
-          <TabsList className="background-light800_dark400 min-h-[42px] p-1">
-            <TabsTrigger value="top-posts" className="tab">Top Posts</TabsTrigger>
-            <TabsTrigger value="answers" className="tab">Answers</TabsTrigger>
-          </TabsList>
-          <TabsContent value="top-posts" className='mt-5 flex w-full flex-col gap-6'>
-            <QuestionTab 
-              searchParams={searchParams}
-              userId={userInfo.user._id}
-              clerkId={clerkId}
-            />
-          </TabsContent>
-          <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            <AnswersTab 
-              searchParams={searchParams}
-              userId={userInfo.user._id}
-              clerkId={clerkId}
-            />
-          </TabsContent>
-        </Tabs>
-      </div>
+                  <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
+                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />    
+              </div>
+              </>
+              )
+            })
+       ) : (
+         <NoResult 
+           title="No Hired vendor"
+           description="It looks like there are no hired vendors."
+           link="/vendors"
+           linkTitle="Look for a vendor"
+         />
+       )}
+     </section>
+         </CardContent>
+       
+       </Card>
+      </TabsContent>
+    </Tabs>
+ 
+
+      
     </>
   )
 }
