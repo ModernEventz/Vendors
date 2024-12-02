@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input"
 import { eventFormSchema } from "@/lib/validator"
 import * as z from 'zod'
 import { eventDefaultValues } from "@/constants"
-import Dropdown from '@/components/ui/dropDown'
+import Dropdown from '@/components/ui/Dropdown'
 import { Textarea } from "@/components/ui/textarea"
 import { FileUploader } from "./FileUploader"
 
