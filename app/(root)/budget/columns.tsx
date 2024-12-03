@@ -1,4 +1,4 @@
-//@ts-nocheck
+po//@ts-nocheck
 "use client"
 import { ColumnDef ,
   ColumnFiltersState,
@@ -16,7 +16,7 @@ import { getTimestamp } from '@/lib/utils'
 import { Checkbox } from "@/components/ui/checkbox"
 import MessageDetails from "@/components/MessageDetails"
 import { Input } from "@/components/ui/input"
-    const columns: ColumnDef<bookings>[] = [
+ export const columns: ColumnDef<bookings>[] = [
   
       {
         id: "select",
