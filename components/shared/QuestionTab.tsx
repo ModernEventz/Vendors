@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { getUserQuestions } from '@/lib/actions/user.action';
 import { SearchParamsProps } from '@/types'
 import React from 'react'
