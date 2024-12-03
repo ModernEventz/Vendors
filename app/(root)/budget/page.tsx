@@ -7,7 +7,7 @@ import { currentUser } from '@clerk/nextjs';
 
 
 
-async function GetData(): Promise<Payment[]> {
+async function GetData(){
   // Fetch data from your API here.
   const user = await currentUser();
   const budget :any|null = await getBudgetById({profileId:user?.id});
