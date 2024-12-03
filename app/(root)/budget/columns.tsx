@@ -12,6 +12,7 @@ import { ColumnDef ,
 } from "@tanstack/react-table"
 import {bookings } from "@/types/collections";
 import { getTimestamp } from '@/lib/utils'
+import { Checkbox } from "@/components/ui/checkbox"
     const columns: ColumnDef<bookings>[] = [
   
       {
