@@ -1,6 +1,6 @@
 
 import { getBudgetById } from "@/lib/actions/budget.action";
-import { Payment, columns } from "./columns"
+import {  columns } from "./columns"
 import { DataTable } from "./data-table"
 import { currentUser } from '@clerk/nextjs';
 
