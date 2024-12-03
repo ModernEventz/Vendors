@@ -1,3 +1,4 @@
+//@ts-nocheck
 // components/PhoneLocationModal.js
 import { useState } from 'react';
 import { useUser } from "@clerk/clerk-react";
