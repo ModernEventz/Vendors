@@ -1,4 +1,4 @@
-
+//@ts-check
 import UserCard from '@/components/cards/UserCard'
 import Filter from '@/components/shared/Filter'
 
