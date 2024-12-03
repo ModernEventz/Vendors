@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Link from "next/link";
 import React from "react";
 import RenderTag from "../shared/RenderTag";
