@@ -135,7 +135,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
                     <p className="text-muted-foreground text-xs">
                      
                     </p>
-                    <Button className=" bg-rose-600 text-white"><Link  href={"/Clist"}>View Orders</Link></Button>
+                    <Button className=" bg-rose-600 text-white"><Link  href={"/budget"}>View Orders</Link></Button>
                     </div>
                   </CardContent>
                 </Card>
