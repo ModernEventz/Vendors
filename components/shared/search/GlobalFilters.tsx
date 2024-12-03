@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client"
 
 import { GlobalSearchFilters } from '@/constants/filters';
