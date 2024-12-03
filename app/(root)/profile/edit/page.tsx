@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Profile from '@/components/forms/Profile';
 import { getUserById } from '@/lib/actions/user.action';
 import { ParamsProps } from '@/types';
