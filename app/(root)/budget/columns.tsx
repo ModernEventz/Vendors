@@ -13,6 +13,8 @@ import { ColumnDef ,
 import {bookings } from "@/types/collections";
 import { getTimestamp } from '@/lib/utils'
 import { Checkbox } from "@/components/ui/checkbox"
+import MessageDetails from "@/components/MessageDetails"
+import { Input } from "@/components/ui/input"
     const columns: ColumnDef<bookings>[] = [
   
       {
