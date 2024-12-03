@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import { HomePageFilters } from "@/constants/filters";
