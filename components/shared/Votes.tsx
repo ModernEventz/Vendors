@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client"
 
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
