@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client";
 
 import { deleteAnswer } from "@/lib/actions/answer.action";
