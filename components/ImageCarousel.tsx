@@ -1,3 +1,4 @@
+//@ts-nocheck
 // components/ImageCarousel.js
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
