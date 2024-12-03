@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client"
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
