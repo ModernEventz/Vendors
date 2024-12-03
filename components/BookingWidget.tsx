@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use client"
 import { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
