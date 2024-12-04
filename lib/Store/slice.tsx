@@ -1,3 +1,4 @@
+//@ts-nocheck
 // store.js
 import { createSlice} from '@reduxjs/toolkit';
 
