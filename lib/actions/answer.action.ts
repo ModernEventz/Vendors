@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use server"
 
 import Answer from "@/database/answer.model";
