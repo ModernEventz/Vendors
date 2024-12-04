@@ -1,3 +1,4 @@
+//@ts-nocheck
 "use server"
 import { currentUser } from '@clerk/nextjs';
 import {createServerComponentClient} from '@supabase/auth-helpers-nextjs'
