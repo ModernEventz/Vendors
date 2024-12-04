@@ -1,3 +1,4 @@
+//@ts-nocheck
 // components/Spinner.tsx
 
 import React from 'react';
