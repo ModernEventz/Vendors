@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className="bg-rose-600 p-4 text-white">
     <div className="flex items-center justify-between">
-      <h1 className="text-2xl font-bold">Save TheDate</h1>
+      <h1 className="text-2xl font-bold">Modern Events</h1>
       <nav>
         <SignedIn>
         <button className="rounded-full border border-white bg-transparent px-4 py-2 text-white">
