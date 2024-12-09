@@ -25,7 +25,7 @@ const spaceGrotesk = Space_Grotesk({
 })
  
 export const metadata: Metadata = {
-  title: 'Save TheDate',
+  title: 'Modern Eventz Vendors',
   description: 'A platform where you can your wedding venues, Caterer,decorators,mc,dj,makeup stylist etc to make event a memorable one.',
   icons: {
     icon: '/assets/images/site-logo.svg'
