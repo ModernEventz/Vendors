@@ -7,8 +7,8 @@ const Footer = () => {
     <footer className="bg-gray-800 text-white py-8">
       <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">
         <div className="mb-4 lg:mb-0">
-          <p className="text-lg font-semibold">Your Company Name</p>
-          <p className="text-sm">123 Main Street, City, Country</p>
+          <p className="text-lg font-semibold">Modern Eventz</p>
+          <p className="text-sm">Osborne Junction, Kumasi, Ghana</p>
           <p className="text-sm">info@example.com</p>
         </div>
         <div className="mb-4 lg:mb-0">
@@ -35,7 +35,7 @@ const Footer = () => {
               <a href="#" className="hover:text-gray-400">Advertising</a>
             </li>
             <li className="mb-2">
-              <a href="#" className="hover:text-gray-400">Sign up as a vendor</a>
+              <a href="#" className="hover:text-gray-400"></a>
             </li>
  
           </ul>
