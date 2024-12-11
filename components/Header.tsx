@@ -6,6 +6,10 @@ import { SignedOut,SignedIn, UserButton } from "@clerk/nextjs";
 const Header = () => {
   return (
     <header className="bg-rose-600 p-4 text-white">
+      
+        <meta name="description" content="This is a hub for event vendors.Sign up as an event vendor and let the world see your work ." />
+        <meta name="robots" content="index, follow" />
+      
     <div className="flex items-center justify-between">
       <h1 className="text-2xl font-bold">Modern Events</h1>
       <nav>
