@@ -64,13 +64,13 @@ const MobileNav = () => {
       <SheetContent side="left" className="background-light900_dark200 border-none">
       <Link href="/" className="flex items-center gap-1">
         <Image
-          src="/assets/images/site-logo.svg"
+          src="/assets/images/site-logo.png"
           width={23}
           height={23}
           alt="DevFlow"
         />
 
-        <p className="h2-bold text-dark100_light900 font-spaceGrotesk">Save <span className="text-primary-500">TheDate</span></p>
+        <p className="h2-bold text-dark100_light900 font-spaceGrotesk">Modern <span className="text-primary-500">Eventz</span></p>
       </Link>
       <div>
         <SheetClose asChild>
