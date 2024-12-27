@@ -218,7 +218,7 @@ const Page = (props) => {
                   <FormControl>
                     <div className="flex-center bg-grey-50 h-[54px] w-full overflow-hidden rounded-full px-4 py-2">
                       <Image
-                        src="/assets/icons/dollar.svg"
+                        src="/assets/icons/ghana-cedis-icon.svg"
                         alt="dollar"
                         width={24}
                         height={24}
