@@ -12,7 +12,7 @@ export default  vendorTypes = [
     {
       id: 1,
       title: "Caterer",
-      image: ("/assets/images/catering.jpg"),
+      image: ("/assets/images/caterer.jpg"),
       url:'/catererListing?category=caterer'
      
     },
@@ -69,6 +69,40 @@ export default  vendorTypes = [
       title: "Transport",
       image: ("/assets/images/transport.jpg"),
       url:'/transportListing?category=transport'
+   
+    },
+        {
+      id: 10,
+      title: "Sound System",
+      image: ("/assets/images/sound-system.jpg"),
+      url:'/transportListing?category=sound'
+   
+    },    {
+      id: 11,
+      title: "Chairs&Canopy",
+      image: ("/assets/images/canopy-chairs.jpg"),
+      url:'/transportListing?category=canopy'
+   
+    },
+        {
+      id: 12,
+      title: "Cake",
+      image: ("/assets/images/wedding-cake.jpg"),
+      url:'/transportListing?category=cake'
+   
+    },
+          {
+      id: 13,
+      title: "invitation Cards",
+      image: ("/assets/images/invitation-card.jpg"),
+      url:'/transportListing?category=invitation-card'
+   
+    },
+    {
+      id: 14,
+      title: "Ushers",
+      image: ("/assets/images/ushers.jpg"),
+      url:'/transportListing?category=ushers'
    
     },
   ];
