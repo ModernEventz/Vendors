@@ -34,7 +34,8 @@ const Dropdown = ({value, onChangeHandler}: DropdownProps) => {
     <SelectItem value="canopy">Canopy & Chairs</SelectItem>
     <SelectItem value="Sounds">Sound System</SelectItem>
     <SelectItem value="cake">Cake</SelectItem>
-    <SelectItem value="usher">Ushers & Waiters</SelectItem>  
+    <SelectItem value="ushers">Ushers & Waiters</SelectItem>  
+       <SelectItem value="invitation-card">Invitation Cards</SelectItem>   
   </SelectContent>
 </Select>
 
