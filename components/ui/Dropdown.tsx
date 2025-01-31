@@ -33,6 +33,8 @@ const Dropdown = ({value, onChangeHandler}: DropdownProps) => {
     <SelectItem value="Transport">Transport</SelectItem>
     <SelectItem value="canopy">Canopy & Chairs</SelectItem>
     <SelectItem value="Sounds">Sound System</SelectItem>
+    <SelectItem value="cake">Cake</SelectItem>
+    <SelectItem value="usher">Ushers & Waiters</SelectItem>  
   </SelectContent>
 </Select>
 
