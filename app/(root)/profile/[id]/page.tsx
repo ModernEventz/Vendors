@@ -158,7 +158,7 @@ const Page = async () => {
           <h2 className="font-bold">{vendor.location}</h2>
           <div className='flex  justify-between gap-x-1'>
           <StarFilledIcon className='mt-1'/>
-          <span> 4.89 <span className="font-normal text-slate-400">(128)</span></span>
+          <span> {vendor.avgRating} <span className="font-normal text-slate-400">({vendor.totalRatings})</span></span>
           </div>
           </div>
           <h3 className="text-sm text-gray-500">{vendor.vendor_name}</h3>
