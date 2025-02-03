@@ -207,7 +207,22 @@ const Page = async () => {
                
 
                   <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
-                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />    
+                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />  
+
+                   <button
+                  onClick={async () => {
+                    try {
+                      await deletePhoto(user?.id, url.name);
+                      // Refresh the media list after deletion
+                      window.location.reload();
+                    } catch (error) {
+                      console.error('Failed to delete photo:', error);
+                    }
+                  }}
+                  className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-bl-lg"
+                >
+                  Delete
+                </button>
               </div>
               </>
               )
