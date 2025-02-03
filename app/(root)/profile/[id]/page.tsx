@@ -218,7 +218,7 @@ const Page = async () => {
          <NoResult 
            title="No Photos "
            description="It looks like there are no photos."
-           link="/vendors"
+           link=""
            linkTitle="upoad a photo"
          />
        )}
