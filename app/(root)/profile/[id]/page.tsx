@@ -202,10 +202,10 @@ const Page = async () => {
             })
        ) : (
          <NoResult 
-           title="No Hired vendor"
-           description="It looks like there are no hired vendors."
+           title="No Photos "
+           description="It looks like there are no photos."
            link="/vendors"
-           linkTitle="Look for a vendor"
+           linkTitle="upoad a photo"
          />
        )}
      </section>
