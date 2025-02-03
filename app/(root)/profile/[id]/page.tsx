@@ -12,12 +12,15 @@ import type { Metadata } from 'next';
 import vendorTypes from '@/constants/vendorTypes'
 import { currentUser } from "@clerk/nextjs";
 import { getHiredVendorById } from "@/lib/actions/hiredVendors.action";
-import { getVendorById } from "@/lib/actions/vendor.action";
+import {   getVendorById } from "@/lib/actions/vendor.action";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getTimestamp } from '@/lib/utils'
 import { Button } from "@/components/ui/button";
 
+
 import { createClient } from '@supabase/supabase-js';
+
+
 
 import {
   Tabs,
@@ -27,240 +30,198 @@ import {
 } from "@/components/ui/tabs"
 import {
   Card, CardContent, CardHeader, CardTitle,
+
 } from "@/components/ui/card"
 import NoResult from '@/components/shared/NoResult'
 import { ImageIcon, Pencil1Icon, PlusIcon, ReaderIcon, StarFilledIcon } from '@radix-ui/react-icons'
 import ICarousel from '@/components/Icarousel'
 
-// Create a Supabase client for server-side calls.
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+ const supabase = createClient(supabaseUrl, supabaseKey);
+
+ 
+
 
 async function GetData() {
   // Fetch data from your API here.
-  const vendor: any | null = await getVendorById();
+  const vendor:any|null = await getVendorById();
   return vendor;
 }
 
 async function GetPhotos() {
-  // Fetch photos from your Supabase storage.
+  // Fetch data from your API here.
   const user = await currentUser();
   const { data, error } = await supabase.storage.from('uploads').list(user?.id + '/', {
     limit: 10,
     offset: 0,
-    sortBy: { column: 'name', order: 'asc' }
+    sortBy: {
+      column: 'name', order:
+        'asc'
+    }
   });
-  if (error) {
-    console.error("Error listing photos: ", error);
-  }
-  return data || [];
+ 
+  return data;
 }
 
-const generateAvatar = (name: string) => {
+
+const generateAvatar = (name) => {
   const initials = name ? name[0].toUpperCase() : '?'; // Use '?' if name is not provided
   const avatarUrl = `https://ui-avatars.com/api/?name=${initials}&background=F33A6A&color=fff`;
 
-  return <img src={avatarUrl} alt={`${initials} Avatar`} className='rounded-full' />;
+  return <img src={avatarUrl} alt={`${initials} Avatar`} className='rounded-full'/>;
 };
-
-//
-// ==========================
-// Client Component for Photos
-// ==========================
-// To enable deletion of photos on the client side we create a nested client component.
-// This component receives the initial photos and the user ID, displays the photos,
-// and renders a Delete button on each photo.
-//
-interface PhotoGalleryProps {
-  initialPhotos: Array<{ name: string }>;
-  userId: string;
-}
-
-// IMPORTANT: The "use client" directive tells Next.js that this component should be rendered on the client.
-const PhotoGallery = ({ initialPhotos, userId }: PhotoGalleryProps) => {
-  "use client";
-  // Import React and useState within the client component.
-  const { useState } = require('react');
-  const [photos, setPhotos] = useState(initialPhotos);
-
-  // Create a Supabase client instance for client-side operations.
-  const { createClient } = require('@supabase/supabase-js');
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const supabaseClient = createClient(supabaseUrl, supabaseKey);
-
-  const handleDelete = async (photoName: string) => {
-    const filePath = `${userId}/${photoName}`;
-    const { data, error } = await supabaseClient.storage.from('uploads').remove([filePath]);
-    if (error) {
-      console.error("Error deleting photo: ", error);
-    } else {
-      // Remove photo from the state so that the UI updates immediately.
-      setPhotos(photos.filter((photo: { name: string }) => photo.name !== photoName));
-    }
-  };
-
-  return (
-    <section className="mt-12 flex flex-wrap gap-4">
-      {photos.length > 0 ? (
-        photos.map((photo: { name: string }, index: number) => (
-          <div key={index} className="relative">
-            <img
-              src={`https://${
-                process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/^https?:\/\//, '')
-              }/storage/v1/object/public/uploads/${userId}/${photo.name}`}
-              alt={`Image ${index}`}
-              style={{ width: '200px', height: '200px', objectFit: 'cover' }}
-              className="rounded-md"
-            />
-            {/* Delete Button */}
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => handleDelete(photo.name)}
-              className="absolute top-2 right-2"
-            >
-              Delete
-            </Button>
-          </div>
-        ))
-      ) : (
-        <NoResult 
-          title="No Photos"
-          description="It looks like there are no photos."
-          link="/vendors"
-          linkTitle="upload a photo"
-        />
-      )}
-    </section>
-  );
-};
-
-//
-// ==========================
-// Main Page Component
-// ==========================
 const Page = async () => {
-  const vendors = await GetData();
-  const media = await GetPhotos();
+  
+  const vendors = await GetData()
+  const media = await GetPhotos()
   const user = await currentUser();
 
+ 
+    
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900 m-5">Profile</h1>
+      <h1 className="h1-bold text-dark100_light900 m-5">Profile</h1> 
 
-      <div className="flex flex-row justify-start gap-x-20">
+      <div className='flex flex-row justify-start gap-x-20'>
         <div>
-          {user?.imageUrl ? (
-            <img
+
+        {user?.imageUrl ? (
+              <img     
               src={user.imageUrl}
-              alt="profile pic"
-              className="rounded-full"
-              width={100}
-              height={100}
-            />
-          ) : (
-            generateAvatar(user?.primaryEmailAddressId)
-          )}
-          <div className="mt-6 flex flex-row gap-x-1">
-            <p className="text-base font-bold">{user?.firstName}</p>
-            <p className="text-base font-bold">{user?.lastName}</p>
+                  alt='profile pic'              
+                  
+                  className="rounded-full"             
+                   width={100}
+                  height={100}
+                  />
+       
+      ) : (
+        generateAvatar(user?.primaryEmailAddressId)
+      )}
+       
+             <div className='mt-6 flex flex-row gap-x-1'> <p className='text-base font-bold'>{user?.firstName}</p>
+             <p className='text-base font-bold '>{user?.lastName}</p>
+             </div>
+
           </div>
-        </div>
 
-        <div>
-          <p className="text-base font-medium text-slate-400">
-            No of posts:<span> {vendors.length}</span>
-          </p>
-          <p className="text-base font-medium text-slate-400">
-            Date Joined: <span>{getTimestamp(new Date(user?.createdAt))}</span>
-          </p>
+         <div>
+          <p className='text-base font-medium text-slate-400'>No of posts:<span> {vendors.length}</span></p>
+          <p className='text-base font-medium text-slate-400'>Date Joined: <span>{getTimestamp(new Date(user?.createdAt))}</span></p>
 
-          <div>
-            <Link href={'/user-profile'}>
-              <Button className="my-14 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40" variant="outline">
-                <Pencil1Icon width={30} height={30} className="pr-2" /> Edit Profile
-              </Button>
+          <div className=''>
+          <Link href={'/user-profile'}>
+          <Button className=" my-14 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40"variant="outline" > 
+            <Pencil1Icon width={30} height={30} className='pr-2'/> Edit Profile
+            </Button>
             </Link>
 
             <Link href={'/eventform'}>
-              <Button className="my-14 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40" variant="outline">
-                <PlusIcon width={30} height={30} className="pr-2" /> Add Post
-              </Button>
-            </Link>
-          </div>
+          <Button className=" my-14 w-40 bg-rose-600 font-bold text-white sm:w-40 md:w-40"variant="outline" > 
+            <PlusIcon width={30} height={30} className='pr-2'/> Add Post
+            </Button>
+            </Link> 
+            </div> 
         </div>
       </div>
 
-      <Tabs defaultValue="posts">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="posts" className="rounded-lg bg-white text-lg font-semibold shadow-md">
-            <ReaderIcon className="mr-2" />Posts
-            <span className="ml-8 text-slate-600">{vendors.length}</span>
-          </TabsTrigger>
-          <TabsTrigger value="photos" className="rounded-lg bg-white text-lg font-semibold shadow-md">
-            <ImageIcon className="mr-2" />Photos
-            <span className="ml-8 text-slate-600">{media.length}</span>
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="posts">
-          <Card>
-            <CardHeader>
-              <CardTitle>My Posts</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                {vendors.length > 0 ? (
-                  vendors.map((vendor: any) => (
-                    <div key={vendor.vendor_id}>
-                      <div className="mb-2 flex rounded-2xl">
-                        {/* image carousel */}
-                        <ICarousel images={vendor.images} href={`/update/${vendor.vendor_id}`} />
-                      </div>
-                      <div className="flex justify-between">
-                        <h2 className="font-bold">{vendor.location}</h2>
-                        <div className="flex justify-between gap-x-1">
-                          <StarFilledIcon className="mt-1" />
-                          <span>
-                            {vendor.avgRating}{' '}
-                            <span className="font-normal text-slate-400">
-                              ({vendor.totalRatings})
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                      <h3 className="text-sm text-gray-500">{vendor.vendor_name}</h3>
-                      <div className="mt-1">
-                        <span className="font-bold">${vendor.price}</span> per night
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
-                    <p>No posts yet</p>
-                    <Link href="/eventform" className="mt-2 font-bold text-accent-blue">
-                      Create your first post!
-                    </Link>
-                  </div>
-                )}
-              </section>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="photos">
-          <Card>
-            <CardContent className="space-y-2">
-              {/* Use the PhotoGallery client component here */}
-              {user?.id && (
-                <PhotoGallery initialPhotos={media || []} userId={user.id} />
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-    </>
-  );
-};
+       
 
-export default Page;
+      <Tabs defaultValue="posts" >
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="posts" className='rounded-lg bg-white text-lg font-semibold shadow-md '><ReaderIcon className='mr-2'/>Posts<span className='ml-8 text-slate-600'>{vendors.length}</span></TabsTrigger>
+        <TabsTrigger value="photos" className='rounded-lg bg-white text-lg font-semibold shadow-md'><ImageIcon className='mr-2'/>Photos<span className='ml-8 text-slate-600'>{media.length}</span></TabsTrigger>
+      </TabsList>
+      <TabsContent value="posts">
+        <Card>
+          <CardHeader>
+            <CardTitle>My Posts</CardTitle>
+            
+          </CardHeader>
+          <CardContent className="space-y-2">
+          
+      <section className="grid grid-cols-1 gap-4  md:grid-cols-3">
+        {vendors.length > 0 ? (
+          vendors.map((vendor)=> (
+            <div  key={vendor.vendor_id}>    
+
+          <div className="mb-2 flex rounded-2xl ">
+                {/* image carousel */}
+   
+                 <ICarousel images={vendor.images}  href={`/update/${vendor.vendor_id}`} />
+          </div>
+          <div className='flex  justify-between'>
+          <h2 className="font-bold">{vendor.location}</h2>
+          <div className='flex  justify-between gap-x-1'>
+          <StarFilledIcon className='mt-1'/>
+          <span> {vendor.avgRating} <span className="font-normal text-slate-400">({vendor.totalRatings})</span></span>
+          </div>
+          </div>
+          <h3 className="text-sm text-gray-500">{vendor.vendor_name}</h3>
+          <div className="mt-1">
+            <span className="font-bold">${vendor.price}</span> per night
+          </div>
+       
+         </div>
+ 
+          ))
+        ) : (
+          <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
+            <p>No posts yet</p>
+            <Link href="/eventform" className="mt-2 font-bold text-accent-blue">
+              Create your first post!
+            </Link>
+          </div>
+        )}
+      </section>
+      
+          </CardContent>
+       
+        </Card>
+      </TabsContent>
+      <TabsContent value="photos">
+      <Card>
+         
+         <CardContent className="space-y-2">
+         <section className="mt-12 flex flex-wrap gap-4">
+       {media.length > 0 ? (
+            media.map((url, index) => {
+              return (<>
+                <div key={index}>
+               
+
+                  <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
+                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />    
+              </div>
+              </>
+              )
+            })
+       ) : (
+         <NoResult 
+           title="No Photos "
+           description="It looks like there are no photos."
+           link="/vendors"
+           linkTitle="upoad a photo"
+         />
+       )}
+     </section>
+         </CardContent>
+       
+       </Card>
+      </TabsContent>
+    </Tabs>
+ 
+
+      
+    </>
+  )
+}
+
+export default Page
+
+ 
+           
