@@ -44,7 +44,19 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
  const supabase = createClient(supabaseUrl, supabaseKey);
 
  
+async function deletePhoto(userId: string, photoName: string) {
+  const { data, error } = await supabase
+    .storage
+    .from('uploads')
+    .remove([`${userId}/${photoName}`,'https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name]');
 
+  if (error) {
+    console.error('Error deleting photo:', error);
+    throw error;
+  }
+
+  return data;
+}
 
 async function GetData() {
   // Fetch data from your API here.
