@@ -48,7 +48,7 @@ async function deletePhoto(userId: string, photoName: string) {
   const { data, error } = await supabase
     .storage
     .from('uploads')
-    .remove([`${userId}/${photoName}`,'https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name]');
+    .remove([`${userId}/${photoName}`,'https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}']);
 
   if (error) {
     console.error('Error deleting photo:', error);
