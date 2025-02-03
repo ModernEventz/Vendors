@@ -187,28 +187,8 @@ const Page = async () => {
       <Card>
          
          <CardContent className="space-y-2">
-         <section className="mt-12 flex flex-wrap gap-4">
-       {media.length > 0 ? (
-            media.map((url, index) => {
-              return (<>
-                <div key={index}>
-               
-
-                  <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
-                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />    
-              </div>
-              </>
-              )
-            })
-       ) : (
-         <NoResult 
-           title="No Photos "
-           description="It looks like there are no photos."
-           link="/vendors"
-           linkTitle="upoad a photo"
-         />
-       )}
-     </section>
+           {/* Use the client component to handle photo deletion */}
+              <PhotoGallery initialPhotos={media} userId={user?.id} />
          </CardContent>
        
        </Card>
