@@ -16,7 +16,7 @@ import {   getVendorById } from "@/lib/actions/vendor.action";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getTimestamp } from '@/lib/utils'
 import { Button } from "@/components/ui/button";
-import { Cross1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon } from "@radix-ui/react-icons";
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -209,7 +209,7 @@ const Page = async () => {
                   <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
                   alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />  
 
-                  <Cross1Icon width={30} height={30} className="absolute right-2 top-2 bg-primary-500 text-white rounded" />      
+                 <Pencil1Icon width={30} height={30} className="absolute right-2 top-2 bg-primary-500 text-white rounded" />    
               </div>
               </>
               )
