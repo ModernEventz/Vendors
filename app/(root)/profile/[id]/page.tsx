@@ -211,14 +211,7 @@ const Page = async () => {
 
                   
                       <button
-                              onClick={async () => {
-                            try {
-                              await deletePhoto(user?.id, url.name);
-                             
-                            } catch (error) {
-                              console.error('Failed to delete photo:', error);
-                            }
-                          }}
+                              onClick={deletePhoto}
                           className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"
                         >
                           Delete
