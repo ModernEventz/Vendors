@@ -211,7 +211,7 @@ const Page = async () => {
 
                   
                       <button
-                              onClick={deletePhoto}
+                              
                           className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"
                         >
                           Delete
