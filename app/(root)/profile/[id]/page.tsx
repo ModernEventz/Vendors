@@ -209,7 +209,13 @@ const Page = async () => {
                   <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
                   alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />  
 
-                 <Pencil1Icon width={30} height={30} className="absolute right-2 top-2 bg-primary-500 text-white rounded" />    
+                  
+                      <button
+                   
+                          className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"
+                        >
+                          Delete
+                        </button>
               </div>
               </>
               )
