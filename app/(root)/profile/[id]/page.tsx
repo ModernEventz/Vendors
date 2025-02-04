@@ -214,7 +214,7 @@ const Page = async () => {
                               onClick={async () => {
                             try {
                               await deletePhoto(user?.id, url.name);
-                              window.location.reload();
+                             
                             } catch (error) {
                               console.error('Failed to delete photo:', error);
                             }
