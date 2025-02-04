@@ -203,7 +203,7 @@ const Page = async () => {
        {media.length > 0 ? (
             media.map((url, index) => {
               return (<>
-                <div key={index}>
+                <div key={index} className="relative">
                
 
                   <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
