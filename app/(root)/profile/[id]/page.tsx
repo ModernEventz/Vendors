@@ -38,36 +38,13 @@ import NoResult from '@/components/shared/NoResult'
 import { ImageIcon, Pencil1Icon, PlusIcon, ReaderIcon, StarFilledIcon } from '@radix-ui/react-icons'
 import ICarousel from '@/components/Icarousel'
 
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,  useDisclosure} from "@nextui-org/react";
-import { useToast } from "@/components/ui/use-toast"
+
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
  const supabase = createClient(supabaseUrl, supabaseKey);
 
- 
-async function deletePhoto(userId: string, photoName: string) {
-  const { data, error } = await supabase
-    .storage
-    .from('uploads')
-    .remove([`${userId}/${photoName}`,'https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}']);
-
- 
-
-     if (error) {
-      console.error('Error deleting  photo:', error.message);
-      } else {
-        toast({
-          description: "Photo successfully deleted.",
-        })
-     
-        setIsModalOpen(false);
-       
-      } 
-
-//  return data;
-}
 
 async function GetData() {
   // Fetch data from your API here.
@@ -103,10 +80,7 @@ const Page = async () => {
   const media = await GetPhotos()
   const user = await currentUser();
   
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const [isModalOpen, setIsModalOpen] = useState(true);
- 
-  const { toast } = useToast()
+
  
     
   return (
