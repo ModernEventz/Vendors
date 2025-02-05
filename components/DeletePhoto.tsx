@@ -18,7 +18,7 @@ import { setVendors } from '@/lib/Store/slice';
  
 
 
-const DeletePhoto = ({vendor_id,vendor_name,location,price,rating,rating_count,description,images,profile_id,category}) => {
+const DeletePhoto = ({userId,photoName}) => {
  
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(true);
