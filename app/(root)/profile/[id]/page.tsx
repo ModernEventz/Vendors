@@ -36,7 +36,8 @@ import NoResult from '@/components/shared/NoResult'
 import { ImageIcon, Pencil1Icon, PlusIcon, ReaderIcon, StarFilledIcon } from '@radix-ui/react-icons'
 import ICarousel from '@/components/Icarousel'
 
-
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,  useDisclosure} from "@nextui-org/react";
+import { useToast } from "@/components/ui/use-toast"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
@@ -50,12 +51,20 @@ async function deletePhoto(userId: string, photoName: string) {
     .from('uploads')
     .remove([`${userId}/${photoName}`,'https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}']);
 
-  if (error) {
-    console.error('Error deleting photo:', error);
-    throw error;
-  }
+ 
 
-  return data;
+     if (error) {
+      console.error('Error deleting  photo:', error.message);
+      } else {
+        toast({
+          description: "Photo successfully deleted.",
+        })
+     
+        setIsModalOpen(false);
+       
+      } 
+
+//  return data;
 }
 
 async function GetData() {
@@ -91,7 +100,11 @@ const Page = async () => {
   const vendors = await GetData()
   const media = await GetPhotos()
   const user = await currentUser();
-
+  
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [isModalOpen, setIsModalOpen] = useState(true);
+ 
+  const { toast } = useToast()
  
     
   return (
@@ -211,11 +224,45 @@ const Page = async () => {
 
                   
                       <button
-                              
+                           onClick={onOpen}   
                           className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"
                         >
                           Delete
                         </button>
+
+
+                   {isModalOpen && (
+      <Modal 
+      backdrop="blur" 
+      isOpen={isOpen} 
+      onOpenChange={onOpenChange}
+      classNames={{
+        backdrop: "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20"
+      }}
+    >
+      <ModalContent className='bg-white'>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Delete Photo</ModalHeader>
+            <ModalBody className="flex flex-col place-items-center gap-1"  >
+              <div  className="flex flex-col gap-1" > 
+               <p>Are you sure you want to delete this photo </p>
+             </div>
+           
+            </ModalBody>
+            <ModalFooter className='py-5'>
+              <Button  variant="outline" onClick={onClose}>
+                Close
+              </Button>
+              <Button   className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded" " onClick={deletePhoto}>
+                Delete
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
+    )}
               </div>
               </>
               )
