@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button";
+
 import UserCard from '@/components/cards/UserCard'
 import Filter from '@/components/shared/Filter'
 
