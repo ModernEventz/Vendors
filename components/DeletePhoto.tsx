@@ -44,14 +44,14 @@ const DeletePhoto = ({userId,photoName}) => {
         toast({
           description: "Photo successfully deleted.",
         })
-        dispatch(setVendors());
+        
         setIsModalOpen(false);
        
       }      
        
   }
   
-async function deletePhoto(userId: string, photoName: string) {
+async function deletePhoto_FromStorage(userId: string, photoName: string) {
   const { data, error } = await supabase.storage.from('uploads').remove([`${userId}/${photoName}`]);
 
   if (error) {
@@ -82,7 +82,7 @@ async function deletePhoto(userId: string, photoName: string) {
       <ModalContent className='bg-white'>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Delete Phot</ModalHeader>
+            <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Delete Photo</ModalHeader>
             <ModalBody className="flex flex-col place-items-center gap-1"  >
               <div  className="flex flex-col gap-1" > 
                <p>Are you sure you want to delete this photo </p>
@@ -93,7 +93,7 @@ async function deletePhoto(userId: string, photoName: string) {
               <Button  variant="outline" onClick={onClose}>
                 Close
               </Button>
-              <Button className="bg-rose-600 font-bold text-white sm:w-40 md:w-40  " onClick={handleSubmitClick}>
+              <Button className="bg-rose-600 font-bold text-white sm:w-40 md:w-40  " onClick={deletePhoto_FromStorage}>
                 Delete
               </Button>
             </ModalFooter>
