@@ -63,8 +63,8 @@ const DeletePhoto = ({userId,photoName}) => {
 
   return (
     <>
-         <a className="my-2 block font-semibold underline" onClick={onOpen}  href={``}>Mark Vendor as hired</a>
-
+         
+         <button onClick={onOpen}  className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"> Delete  </button>
       
      
       {isModalOpen && (
@@ -79,10 +79,10 @@ const DeletePhoto = ({userId,photoName}) => {
       <ModalContent className='bg-white'>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Mark Vendor As Hired</ModalHeader>
+            <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Delete Phot</ModalHeader>
             <ModalBody className="flex flex-col place-items-center gap-1"  >
               <div  className="flex flex-col gap-1" > 
-               <p>Are you sure you want to mark this vendor as hired </p>
+               <p>Are you sure you want to delete this photo </p>
              </div>
            
             </ModalBody>
@@ -91,7 +91,7 @@ const DeletePhoto = ({userId,photoName}) => {
                 Close
               </Button>
               <Button className="bg-rose-600 font-bold text-white sm:w-40 md:w-40  " onClick={handleSubmitClick}>
-                Mark as Hired
+                Delete
               </Button>
             </ModalFooter>
           </>
