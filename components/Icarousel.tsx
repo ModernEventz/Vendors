@@ -13,6 +13,10 @@ import {
 import { Badge } from "./ui/badge";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { deleteVendors } from "@/lib/actions/vendor.action";
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,  useDisclosure} from "@nextui-org/react";
+import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button";
 
 const Dots = ({ images, currentIndex, setCurrentIndex }) => {
   return (
@@ -30,8 +34,68 @@ const Dots = ({ images, currentIndex, setCurrentIndex }) => {
   );
 };
 
-const ICarousel = ({ images, href }) => {
+
+
+const ICarousel = ({ images, href,delete_id }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
+
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const [isModalOpen, setIsModalOpen] = useState(true);
+ 
+  const { toast } = useToast()
+
+
+  async function deletePhoto() {
+    const  {  error } =  await deleteVendors({ delete_id})
+
+     if (error) {
+      console.error('Error deleting  photo:', error.message);
+      } else {
+        toast({
+          description: "Photo successfully deleted.",
+        })
+     
+        setIsModalOpen(false);
+       
+      } 
+
+//  return data;
+} 
+  
+  {isModalOpen && (
+    <Modal 
+    backdrop="blur" 
+    isOpen={isOpen} 
+    onOpenChange={onOpenChange}
+    classNames={{
+      backdrop: "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20"
+    }}
+  >
+    <ModalContent className='bg-white'>
+      {(onClose) => (
+        <>
+          <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Delete Photo</ModalHeader>
+          <ModalBody className="flex flex-col place-items-center gap-1"  >
+            <div  className="flex flex-col gap-1" > 
+             <p>Are you sure you want to delete this photo </p>
+           </div>
+         
+          </ModalBody>
+          <ModalFooter className='py-5'>
+            <Button  variant="outline" onClick={onClose}>
+              Close
+            </Button>
+            <Button   className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"  onClick={deletePhoto}>
+              Delete
+            </Button>
+          </ModalFooter>
+        </>
+      )}
+    </ModalContent>
+  </Modal>
+
+  )}
+       
 
   return (
     <Carousel className="relative w-full max-w-xs group">
@@ -49,7 +113,11 @@ const ICarousel = ({ images, href }) => {
 
 <Link href={href}>
 <Pencil1Icon width={30} height={30} className="absolute right-2 top-2 bg-primary-500 text-white rounded" /> 
-</Link>  
+</Link> 
+
+<Link href={''} onClick={onOpen}>
+<Pencil1Icon width={30} height={30} className="absolute right-2 top-2 bg-primary-500 text-white rounded" /> 
+</Link> 
             </div>
           </CarouselItem>
         ))}

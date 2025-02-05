@@ -179,7 +179,7 @@ const Page = async () => {
           <div className="mb-2 flex rounded-2xl ">
                 {/* image carousel */}
    
-                 <ICarousel images={vendor.images}  href={`/update/${vendor.vendor_id}`} />
+                 <ICarousel images={vendor.images}  href={`/update/${vendor.vendor_id}`} delete_id={vendor.vendor_id} />
           </div>
           <div className='flex  justify-between'>
           <h2 className="font-bold">{vendor.location}</h2>
@@ -225,47 +225,9 @@ const Page = async () => {
                   alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />  
 
                   
-                      <button
-                           onClick={onOpen}   
-                          className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded"
-                        >
-                          Delete
-                        </button>
+                 
 
-
-                   {isModalOpen && (
-      <Modal 
-      backdrop="blur" 
-      isOpen={isOpen} 
-      onOpenChange={onOpenChange}
-      classNames={{
-        backdrop: "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20"
-      }}
-    >
-      <ModalContent className='bg-white'>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1 py-3 text-center font-bold">Delete Photo</ModalHeader>
-            <ModalBody className="flex flex-col place-items-center gap-1"  >
-              <div  className="flex flex-col gap-1" > 
-               <p>Are you sure you want to delete this photo </p>
-             </div>
-           
-            </ModalBody>
-            <ModalFooter className='py-5'>
-              <Button  variant="outline" onClick={onClose}>
-                Close
-              </Button>
-              <Button   className="absolute top-2 right-2 bg-primary-500 text-white p-1 rounded" " onClick={deletePhoto}>
-                Delete
-              </Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
-    )}
-              </div>
+     </div>
               </>
               )
             })

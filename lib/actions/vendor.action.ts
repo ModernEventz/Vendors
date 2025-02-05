@@ -4,7 +4,7 @@ import { currentUser } from '@clerk/nextjs';
 import {createServerComponentClient} from '@supabase/auth-helpers-nextjs'
 
 import { cookies } from 'next/headers';
-import { GetFilterVendorsByLocationParams, GetSearchVendorsPaginationParams, GetVendorByIdParams, GetVendorsByCategoryNoPaginationParams, GetVendorsByCategoryPaginationParams,insertVendorsParams, updateVendorsParams} from './shared.types';
+import { deleteVendorsParams, GetFilterVendorsByLocationParams, GetSearchVendorsPaginationParams, GetVendorByIdParams, GetVendorsByCategoryNoPaginationParams, GetVendorsByCategoryPaginationParams,insertVendorsParams, updateVendorsParams} from './shared.types';
 
 
 
@@ -334,6 +334,46 @@ if (error) {
   console.error('Error inserting vendor:', error.message);
 } else {
  console.log('sent',publicUrls);
+ return (data);
+}
+
+
+  }
+  
+ catch (error) {
+  console.log(error);
+  throw error;
+}
+
+  }
+
+  export async function deleteVendors(params:  deleteVendorsParams) {
+    // eslint-disable-next-line no-useless-catch
+    try {
+       
+      const supabase = createServerComponentClient ({cookies});
+    
+     
+      const user = await currentUser();
+         
+    
+      const {  vendorId } = params;
+
+       
+  // delete a post
+
+  const { data, error } = await supabase
+  .from('vendors')
+  .delete()
+  .eq('vendor_id', vendorId)
+  .select();
+
+ // revalidatePath(path)
+  
+if (error) {
+  console.error('Error deleting post:', error.message);
+} else {
+ console.log('deleted');
  return (data);
 }
 

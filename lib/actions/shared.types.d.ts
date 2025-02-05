@@ -308,3 +308,9 @@ export interface updateVendorsParams {
   category:string;
   publicUrls:string[]
 }
+
+
+export interface deleteVendorsParams {
+  vendorId: string;
+ 
+}
