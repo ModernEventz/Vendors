@@ -39,25 +39,28 @@ const DeletePhoto = ({userId,photoName}) => {
      const  {  error } =  await submitHiredVendor({vendor_id,vendor_name,location,price,rating,rating_count,description,images,profile_id,category})
  
      if (error) {
-      console.error('Error fetching  data:', error.message);
+      console.error('Error deleting  data:', error.message);
       } else {
         toast({
-          description: "Vendor successfully Hired.",
+          description: "Photo successfully deleted.",
         })
         dispatch(setVendors());
         setIsModalOpen(false);
        
       }      
-     
-   
-   
- 
-    
- 
-   
+       
   }
   
+async function deletePhoto(userId: string, photoName: string) {
+  const { data, error } = await supabase.storage.from('uploads').remove([`${userId}/${photoName}`]);
 
+  if (error) {
+    console.error('Error deleting photo:', error);
+    throw error;
+  }
+
+  return data;
+}
   
 
 
