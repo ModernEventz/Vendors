@@ -231,7 +231,20 @@ const Page = (props) => {
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
-                           
+                            <div className="items-top flex space-x-2">
+      <Checkbox id="terms1" />
+      <div className="grid gap-1.5 leading-none">
+        <label
+          htmlFor="terms1"
+          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Request for price information
+        </label>
+        <p className="text-sm text-muted-foreground">
+          Please tick the box if you don't want specify the price
+        </p>
+      </div>
+    </div>
           
                             </FormControl>
                             <FormMessage />
