@@ -220,7 +220,7 @@ const Page = (props) => {
                 control={form.control}
                 name="preferNotSpecifyPrice"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row  place-content-start  space-x-2">
+                  <FormItem className="grid  grid-cols-2 place-content-start gap-4">
                     <FormControl>
                       <input
                         type="radio"
