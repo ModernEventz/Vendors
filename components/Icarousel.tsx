@@ -36,7 +36,7 @@ const Dots = ({ images, currentIndex, setCurrentIndex }) => {
 
 
 
-const ICarousel = ({ images, href,delete_id }) => {
+const ICarousel = ({ images, href }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
