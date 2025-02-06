@@ -51,7 +51,7 @@ const Page = ({ params }: ParamsProps) => {
   const { user } = useUser();
   
 
-  const [publicUrls, setPublicUrls] = useState(['']);
+
 
   
   useEffect(() => {
@@ -74,39 +74,7 @@ const Page = ({ params }: ParamsProps) => {
   }, [params.id]);
    
 
-  async function uploadImage(e) {
-    const files = e.target.files;
-    const urls = [];
-
-    // const { data, error } =  await fileUpload( {files});
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const filePath=user?.id + "/" + uuidv4();
-    
-       const { data, error } = await supabase
-      .storage
-      .from('uploads')
-      .upload(filePath, file)
-
-      if (error) {
-        throw error;
-      }
-      const publicURL = supabase
-        .storage
-        .from('uploads')
-        .getPublicUrl(filePath).data.publicUrl;
-        
-        urls.push(publicURL);
-        console.log('URLs to be inserted:', urls);
-        setPublicUrls(urls);
-    //  await fileUpload({ vendor_id:user?.id , image_path: publicURL })
-
-    }
-   
-    console.log('URLs to be inserted:', urls);
-
-  }
-
+ 
    
  
 

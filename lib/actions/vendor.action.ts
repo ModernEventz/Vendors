@@ -365,8 +365,8 @@ if (error) {
   const { data, error } = await supabase
   .from('vendors')
   .delete()
-  .eq('vendor_id', vendorId)
-  .select();
+  .eq('vendor_id', vendorId);
+  
 
  // revalidatePath(path)
   
