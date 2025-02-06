@@ -1,6 +1,4 @@
 //@ts-nocheck
-"use client"
-import React, { useEffect, useState } from 'react'
 
 import UserCard from '@/components/cards/UserCard'
 import Filter from '@/components/shared/Filter'
@@ -39,8 +37,7 @@ import NoResult from '@/components/shared/NoResult'
 import { ImageIcon, Pencil1Icon, PlusIcon, ReaderIcon, StarFilledIcon } from '@radix-ui/react-icons'
 import ICarousel from '@/components/Icarousel'
 
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter,  useDisclosure} from "@nextui-org/react";
-import { useToast } from "@/components/ui/use-toast"
+
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
@@ -48,27 +45,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
  const supabase = createClient(supabaseUrl, supabaseKey);
 
  
-async function deletePhoto(userId: string, photoName: string) {
-  const { data, error } = await supabase
-    .storage
-    .from('uploads')
-    .remove([`${userId}/${photoName}`,'https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}']);
 
- 
-
-     if (error) {
-      console.error('Error deleting  photo:', error.message);
-      } else {
-        toast({
-          description: "Photo successfully deleted.",
-        })
-     
-        setIsModalOpen(false);
-       
-      } 
-
-//  return data;
-}
 
 async function GetData() {
   // Fetch data from your API here.
@@ -103,11 +80,7 @@ const Page = async () => {
   const vendors = await GetData()
   const media = await GetPhotos()
   const user = await currentUser();
-  
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const [isModalOpen, setIsModalOpen] = useState(true);
- 
-  const { toast } = useToast()
+
  
     
   return (
@@ -180,18 +153,18 @@ const Page = async () => {
           <div className="mb-2 flex rounded-2xl ">
                 {/* image carousel */}
    
-                 <ICarousel images={vendor.images}  href={`/update/${vendor.vendor_id}`} delete_id={vendor.vendor_id} />
+                 <ICarousel images={vendor.images}  href={`/update/${vendor.vendor_id}`} />
           </div>
           <div className='flex  justify-between'>
           <h2 className="font-bold">{vendor.location}</h2>
           <div className='flex  justify-between gap-x-1'>
           <StarFilledIcon className='mt-1'/>
-          <span> {vendor.avgRating} <span className="font-normal text-slate-400">({vendor.totalRatings})</span></span>
+          <span>  <span className="font-normal text-slate-400"></span></span>
           </div>
           </div>
           <h3 className="text-sm text-gray-500">{vendor.vendor_name}</h3>
           <div className="mt-1">
-            <span className="font-bold">${vendor.price}</span> per night
+            <span className="font-bold">${vendor.price}</span> 
           </div>
        
          </div>
@@ -219,25 +192,21 @@ const Page = async () => {
        {media.length > 0 ? (
             media.map((url, index) => {
               return (<>
-                <div key={index} className="relative">
+                <div key={index}>
                
 
                   <img src= {`https://wjyimkeequncdarvitza.supabase.co/storage/v1/object/public/uploads/${user?.id}/${url.name}`}
-                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />  
-
-                  
-                 
-
-     </div>
+                  alt={`Image ${index}`} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />    
+              </div>
               </>
               )
             })
        ) : (
          <NoResult 
-           title="No Photos "
-           description="It looks like there are no photos."
-           link=""
-           linkTitle="upoad a photo"
+           title="No Photo"
+           description="It looks like there are no uploaded Photos."
+           link="/"
+           linkTitle="Upload a photo"
          />
        )}
      </section>
@@ -254,6 +223,3 @@ const Page = async () => {
 }
 
 export default Page
-
- 
-           
