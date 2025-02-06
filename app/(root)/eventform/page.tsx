@@ -220,7 +220,7 @@ const Page = (props) => {
                 control={form.control}
                 name="preferNotSpecifyPrice"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center space-x-2">
+                  <FormItem className="flex flex-row justify-items-start  space-x-2">
                     <FormControl>
                       <input
                         type="radio"
@@ -230,14 +230,14 @@ const Page = (props) => {
                       />
                     </FormControl>
                     <FormLabel htmlFor="preferNotSpecifyPrice" className="cursor-pointer">
-                      Prefer not specify a price
+                      Prefer not to specify a price
                     </FormLabel>
                   </FormItem>
                 )}
               />
             </div>
           </div>
-
+ 
           <Button
             type="submit"
             size="lg"
