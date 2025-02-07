@@ -233,7 +233,7 @@ const Page = (props) => {
                           className="filter-grey"
                         />
                         <Input
-                          type="number"
+                         
                           placeholder="Price"
                           {...field}
                           className="p-regular-16 bg-grey-50 border-2 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
