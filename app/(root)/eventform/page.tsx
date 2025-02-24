@@ -50,20 +50,47 @@ const Page = (props) => {
 
   async function uploadImage(e) {
     const files = e.target.files;
-    const urls = [];
+    
+    // Limit the number of files to 4 images
+    if (files.length > 4) {
+      toast({
+        title: "Too many files",
+        description: "Please select up to 4 images only.",
+        variant: "destructive",
+      });
+      return;
+    }
 
+    const urls = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
+
+      // Optional: Check file type before uploading (only allow image files)
+      if (!file.type.startsWith("image/")) {
+        toast({
+          title: "Invalid file type",
+          description: "Only image files are allowed.",
+          variant: "destructive",
+        });
+        continue;
+      }
+      
       const filePath = user?.id + "/" + uuidv4();
     
       const { data, error } = await supabase
         .storage
         .from('uploads')
-        .upload(filePath, file)
+        .upload(filePath, file);
 
       if (error) {
-        throw error;
+        toast({
+          title: "Upload error",
+          description: error.message,
+          variant: "destructive",
+        });
+        continue;
       }
+      
       const publicURL = supabase
         .storage
         .from('uploads')
@@ -73,13 +100,11 @@ const Page = (props) => {
       console.log('URLs to be inserted:', urls);
       setPublicUrls(urls);
     }
-   
-    console.log('URLs to be inserted:', urls);
+    console.log('Final URLs to be inserted:', urls);
   }
 
   // Initialize the form.
-  // (Ensure that your eventFormSchema and eventDefaultValues include a property for preferNotSpecifyPrice, for example:
-  // preferNotSpecifyPrice: false)
+  // Ensure that your eventFormSchema and eventDefaultValues include a property for preferNotSpecifyPrice.
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: {
@@ -98,15 +123,15 @@ const Page = (props) => {
       price: preferNotSpecifyPrice ? null : values.price,
       description: values.description,
       category: values.categoryId,
-      publicUrls
-    })
+      publicUrls,
+    });
     
     if (error) {
       console.error('Error fetching vendor data:', error.message);
     } else {
       toast({
         description: "Your post has been sent successfully.",
-      })
+      });
       dispatch(setTotalPosts());
     }
   }
@@ -166,7 +191,12 @@ const Page = (props) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl className="h-72">
-                    <input type="file" multiple onChange={(e) => uploadImage(e)} />
+                    <input
+                      type="file"
+                      accept="image/*"  // Only allow images.
+                      multiple
+                      onChange={(e) => uploadImage(e)}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -203,11 +233,11 @@ const Page = (props) => {
                           className="filter-grey"
                         />
                         <Input
-                          type="number"
+                         
                           placeholder="Price"
                           {...field}
                           className="p-regular-16 bg-grey-50 border-2 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                          disabled={preferNotSpecifyPrice}  // disable if user prefers not to specify a price
+                          disabled={preferNotSpecifyPrice}  // Disable if user prefers not to specify a price
                         />
                       </div>
                     </FormControl>
@@ -220,7 +250,7 @@ const Page = (props) => {
                 control={form.control}
                 name="preferNotSpecifyPrice"
                 render={({ field }) => (
-                  <FormItem className="grid  grid-cols-2 place-content-start gap-2">
+                  <FormItem className="flex flex-row items-center space-x-2">
                     <FormControl>
                       <input
                         type="radio"
@@ -230,14 +260,14 @@ const Page = (props) => {
                       />
                     </FormControl>
                     <FormLabel htmlFor="preferNotSpecifyPrice" className="cursor-pointer">
-                      Prefer not to specify a price
+                      Prefer not specify a price
                     </FormLabel>
                   </FormItem>
                 )}
               />
             </div>
           </div>
- 
+
           <Button
             type="submit"
             size="lg"
