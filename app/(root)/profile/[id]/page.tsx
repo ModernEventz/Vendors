@@ -191,7 +191,7 @@ const Page = async () => {
           </div>
           <h3 className="text-sm text-gray-500">{vendor.vendor_name}</h3>
           <div className="mt-1">
-            <span className="font-bold">${vendor.price}</span> per night
+            <span className="font-bold">${vendor.price}</span> 
           </div>
        
          </div>
