@@ -164,6 +164,7 @@ const Page = (props) => {
                       files={files}
                       onupdatefiles={setFiles}
                       allowMultiple={true}
+                      maxFiles={4}
                       name="files"
                       labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                     />
